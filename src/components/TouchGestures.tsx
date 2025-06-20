@@ -22,21 +22,22 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
-      // Only handle if it's not a hold gesture (we don't want to conflict with hold-to-reveal)
+      // Handle multi-touch
       if (e.touches.length > 1) {
         onMultiTouch(e.touches.length);
         triggerVibration(vibrationPatterns.mysticalPulse);
+        return;
       }
 
-      // Only track single touches for swipe detection
+      // Only track single touches for swipe/tap detection
       if (e.touches.length === 1) {
         const touch = e.touches[0];
         const target = e.target as HTMLElement;
         
-        // Don't track swipes on interactive elements
+        // Don't track swipes on interactive elements or instructions modal
         if (target.tagName === 'BUTTON' || 
             target.tagName === 'A' || 
-            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen')) {
+            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen, .mobile-instructions')) {
           return;
         }
         
@@ -49,23 +50,24 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
       
       if (e.changedTouches.length === 1 && startTouch) {
         const touch = e.changedTouches[0];
-        const deltaX = touch.clientX - startTouch.x;
-        const deltaY = touch.clientY - startTouch.y;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         const target = e.target as HTMLElement;
-
-        // Don't handle taps on interactive elements
+        
+        // Don't handle taps on interactive elements or instructions modal
         if (target.tagName === 'BUTTON' || 
             target.tagName === 'A' || 
-            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen')) {
+            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen, .mobile-instructions')) {
           setStartTouch(null);
           return;
         }
 
+        const deltaX = touch.clientX - startTouch.x;
+        const deltaY = touch.clientY - startTouch.y;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
         // If it's a tap (small movement)
-        if (distance < 30) {
+        if (distance < 40) {
           // Handle multiple taps
-          if (now - lastTapTime < 500) {
+          if (now - lastTapTime < 600) {
             setTapCount(prev => prev + 1);
           } else {
             setTapCount(1);
@@ -85,8 +87,8 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
               triggerVibration(vibrationPatterns.cheatCode);
             }
             setTapCount(0);
-          }, 500);
-        } else if (distance > 50) {
+          }, 600);
+        } else if (distance > 80) {
           // It's a swipe - only if distance is significant
           let direction = '';
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -120,7 +122,7 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
       setStartTouch(null);
     };
 
-    // Use passive: false only where needed to avoid conflicts
+    // Use passive listeners to not interfere with scrolling
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('touchend', handleTouchEnd, { passive: true });
 

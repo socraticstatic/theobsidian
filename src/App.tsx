@@ -72,15 +72,15 @@ function App() {
     };
   }, [isMobile]);
 
-  // Improved hold-to-reveal system
+  // Improved hold-to-reveal system - non-intrusive
   useEffect(() => {
-    let startTime = 0;
     let isCurrentlyHolding = false;
+    let holdStartTime = 0;
 
     const handleStart = (e: Event) => {
       const target = e.target as HTMLElement;
       
-      // Don't trigger on interactive elements
+      // Only handle on non-interactive elements and main content areas
       if (target.tagName === 'BUTTON' || 
           target.tagName === 'A' || 
           target.tagName === 'INPUT' ||
@@ -88,10 +88,13 @@ function App() {
         return;
       }
 
-      // Prevent default to avoid conflicts
-      e.preventDefault();
-      
-      startTime = Date.now();
+      // Only proceed if target is a main section
+      if (!target.closest('.hero-section, .about-section, .contact-section') && 
+          target.className !== 'obsidian-app') {
+        return;
+      }
+
+      holdStartTime = Date.now();
       isCurrentlyHolding = true;
 
       // Clear any existing timeout
@@ -99,7 +102,7 @@ function App() {
         clearTimeout(holdTimeout);
       }
 
-      // Set a timeout for hold detection (500ms)
+      // Set a timeout for hold detection (800ms for better UX)
       const timeout = setTimeout(() => {
         if (isCurrentlyHolding) {
           setIsHolding(true);
@@ -108,7 +111,7 @@ function App() {
             triggerVibration(vibrationPatterns.longPress);
           }
         }
-      }, 500);
+      }, 800);
 
       setHoldTimeout(timeout);
     };
@@ -126,18 +129,25 @@ function App() {
         setTimeout(() => {
           setIsHolding(false);
           setShowHidden(false);
-        }, 200); // Small delay for better UX
+        }, 300);
       }
     };
 
-    const handleMove = (e: TouchEvent) => {
-      // If user moves finger too much, cancel hold
-      if (isCurrentlyHolding && e.touches.length > 0) {
-        const touch = e.touches[0];
-        const moveDistance = Math.abs(touch.clientX - (e.target as any).startX) + 
-                           Math.abs(touch.clientY - (e.target as any).startY);
+    const handleMove = (e: TouchEvent | MouseEvent) => {
+      // Allow small movements but cancel hold for larger ones
+      if (isCurrentlyHolding && Date.now() - holdStartTime > 100) {
+        let moveDistance = 0;
         
-        if (moveDistance > 30) { // 30px threshold
+        if ('touches' in e && e.touches.length > 0) {
+          // For touch events, we'd need to track initial position
+          // For now, let's be less strict to allow scrolling
+          return;
+        } else if ('clientX' in e) {
+          // For mouse events
+          moveDistance = Math.abs(e.movementX) + Math.abs(e.movementY);
+        }
+        
+        if (moveDistance > 10) {
           isCurrentlyHolding = false;
           if (holdTimeout) {
             clearTimeout(holdTimeout);
@@ -147,25 +157,15 @@ function App() {
       }
     };
 
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) {
-        // Store initial position for move detection
-        const touch = e.touches[0];
-        (e.target as any).startX = touch.clientX;
-        (e.target as any).startY = touch.clientY;
-      }
-      handleStart(e);
-    };
-
     if (isMobile) {
-      document.addEventListener('touchstart', handleTouchStart, { passive: false });
+      // Use passive listeners to allow scrolling
+      document.addEventListener('touchstart', handleStart, { passive: true });
       document.addEventListener('touchend', handleEnd, { passive: true });
       document.addEventListener('touchcancel', handleEnd, { passive: true });
-      document.addEventListener('touchmove', handleMove, { passive: true });
     } else {
       document.addEventListener('mousedown', handleStart);
       document.addEventListener('mouseup', handleEnd);
-      document.addEventListener('mouseleave', handleEnd);
+      document.addEventListener('mousemove', handleMove);
     }
 
     return () => {
@@ -174,14 +174,13 @@ function App() {
       }
 
       if (isMobile) {
-        document.removeEventListener('touchstart', handleTouchStart);
+        document.removeEventListener('touchstart', handleStart);
         document.removeEventListener('touchend', handleEnd);
         document.removeEventListener('touchcancel', handleEnd);
-        document.removeEventListener('touchmove', handleMove);
       } else {
         document.removeEventListener('mousedown', handleStart);
         document.removeEventListener('mouseup', handleEnd);
-        document.removeEventListener('mouseleave', handleEnd);
+        document.removeEventListener('mousemove', handleMove);
       }
     };
   }, [isMobile, holdTimeout, isHolding]);
@@ -549,7 +548,7 @@ function App() {
             <span className="instruction-title">✨ Mystical Touch Guide ✨</span>
             <button className="instruction-close" onClick={dismissMobileInstructions}>×</button>
           </div>
-          <div className="instruction-item">📱 Hold anywhere to reveal mysteries</div>
+          <div className="instruction-item">📱 Hold main areas to reveal mysteries</div>
           <div className="instruction-item">📳 Shake device to awaken the void</div>
           <div className="instruction-item">👆 Triple tap for ancient secrets</div>
           <div className="instruction-item">🤏 Multi-touch for mystical powers</div>
