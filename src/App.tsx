@@ -26,6 +26,7 @@ function App() {
   const [touchPattern, setTouchPattern] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const [holdTimeout, setHoldTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [showMobileInstructions, setShowMobileInstructions] = useState(false);
 
   // Detect mobile device
   useEffect(() => {
@@ -37,6 +38,17 @@ function App() {
         window.innerWidth <= 768
       );
       setIsMobile(isMobileDevice);
+      
+      // Show mobile instructions briefly for mobile users
+      if (isMobileDevice) {
+        setTimeout(() => {
+          setShowMobileInstructions(true);
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            setShowMobileInstructions(false);
+          }, 5000);
+        }, 2000);
+      }
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -72,7 +84,7 @@ function App() {
       if (target.tagName === 'BUTTON' || 
           target.tagName === 'A' || 
           target.tagName === 'INPUT' ||
-          target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen, .alchemical-orb, .lunar-phase, .temporal-indicator')) {
+          target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen, .alchemical-orb, .lunar-phase, .temporal-indicator, .mobile-instructions')) {
         return;
       }
 
@@ -464,6 +476,11 @@ function App() {
     };
   }, [isHexagonSpinning]);
 
+  // Dismiss mobile instructions
+  const dismissMobileInstructions = () => {
+    setShowMobileInstructions(false);
+  };
+
   return (
     <div className={`obsidian-app ${isHolding ? 'reveal-esoteric' : ''} ${isShaking ? 'device-shaking' : ''} ${isMobile ? 'mobile-experience' : ''}`}
          style={{
@@ -525,13 +542,18 @@ function App() {
       {/* Ambient Particles */}
       <VoidParticles isMobile={isMobile} />
       
-      {/* Mobile Instructions Overlay */}
-      {isMobile && (
-        <div className="mobile-instructions">
+      {/* Mobile Instructions Overlay - Now dismissible */}
+      {isMobile && showMobileInstructions && (
+        <div className="mobile-instructions" onClick={dismissMobileInstructions}>
+          <div className="instruction-header">
+            <span className="instruction-title">✨ Mystical Touch Guide ✨</span>
+            <button className="instruction-close" onClick={dismissMobileInstructions}>×</button>
+          </div>
           <div className="instruction-item">📱 Hold anywhere to reveal mysteries</div>
           <div className="instruction-item">📳 Shake device to awaken the void</div>
           <div className="instruction-item">👆 Triple tap for ancient secrets</div>
           <div className="instruction-item">🤏 Multi-touch for mystical powers</div>
+          <div className="instruction-footer">Tap anywhere to dismiss</div>
         </div>
       )}
     </div>

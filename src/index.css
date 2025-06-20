@@ -1275,7 +1275,7 @@ html {
 }
 
 /* ==========================================================================
-   MOBILE INSTRUCTIONS
+   MOBILE INSTRUCTIONS - Enhanced and Dismissible
    ========================================================================== */
 
 .mobile-instructions {
@@ -1283,28 +1283,88 @@ html {
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(18, 18, 18, 0.85);
-  padding: 1rem;
-  border-radius: 4px;
+  background: rgba(18, 18, 18, 0.95);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
   border: 1px solid var(--stone-shadow);
-  z-index: 1000;
+  z-index: 500; /* Reduced z-index to avoid blocking */
   font-size: 0.65rem;
   font-family: 'SF Mono', monospace;
   color: var(--muted-stone);
   text-align: center;
-  backdrop-filter: blur(10px);
-  animation: fade-in-up 1s ease 3s both;
+  backdrop-filter: blur(15px);
+  animation: modal-slide-up 0.6s ease-out;
   max-width: calc(100vw - 2rem);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  pointer-events: auto; /* Ensure it can be tapped */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-instructions:hover {
+  background: rgba(18, 18, 18, 0.98);
+  border-color: var(--ember-glow);
+}
+
+.instruction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--stone-shadow);
+}
+
+.instruction-title {
+  font-size: 0.7rem;
+  color: var(--ancient-gold);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.instruction-close {
+  background: none;
+  border: none;
+  color: var(--ember-glow);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  line-height: 1;
+  min-width: 24px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instruction-close:hover,
+.instruction-close:active {
+  background: rgba(122, 122, 122, 0.2);
+  color: var(--ancient-gold);
+  transform: scale(1.1);
 }
 
 .instruction-item {
-  margin-bottom: 0.3rem;
-  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
   letter-spacing: 0.05em;
+  line-height: 1.4;
+  padding: 0.2rem 0;
 }
 
-.instruction-item:last-child {
-  margin-bottom: 0;
+.instruction-item:last-of-type {
+  margin-bottom: 0.8rem;
+}
+
+.instruction-footer {
+  font-size: 0.55rem;
+  color: var(--rune-silver);
+  opacity: 0.6;
+  font-style: italic;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(84, 84, 84, 0.3);
 }
 
 /* ==========================================================================
@@ -1527,6 +1587,17 @@ html {
   to {
     opacity: 1;
     transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }
 
@@ -1818,15 +1889,16 @@ html {
     opacity: 0.08;
   }
   
-  /* Mobile instruction positioning */
+  /* Mobile instruction positioning - ensure proper spacing from bottom */
   .mobile-instructions {
-    bottom: 0.5rem;
-    font-size: 0.7rem;
-    padding: 0.8rem 1rem;
+    bottom: 1rem;
+    font-size: 0.65rem;
+    padding: 1rem 1.2rem;
+    margin-bottom: env(safe-area-inset-bottom, 0); /* Account for mobile notches */
   }
   
   .instruction-item {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
   }
 }
 
