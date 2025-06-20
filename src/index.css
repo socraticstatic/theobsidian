@@ -51,6 +51,15 @@ body {
     radial-gradient(circle at 20% 80%, rgba(26, 26, 26, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(26, 26, 26, 0.3) 0%, transparent 50%);
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile override for cursor */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
 }
 
 /* Extremely Subtle Scratch Texture Overlay */
@@ -122,6 +131,26 @@ body::after {
 .obsidian-app {
   min-height: 100vh;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Experience Enhancements */
+.mobile-experience {
+  /* Better touch scrolling */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Device Shaking Effect */
+.device-shaking {
+  animation: device-shake 0.3s ease-in-out;
+}
+
+@keyframes device-shake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, -2px); }
 }
 
 /* ==========================================================================
@@ -173,6 +202,12 @@ html {
   z-index: 2;
 }
 
+.mobile-esoteric {
+  /* Optimize for mobile performance */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 .rune-sequence {
   position: absolute;
   top: 1rem;
@@ -181,6 +216,12 @@ html {
   gap: 1rem;
   opacity: 0.4;
   transition: all 0.3s ease;
+}
+
+.rune-sequence.pattern-active {
+  opacity: 0.9;
+  color: var(--ancient-gold);
+  text-shadow: 0 0 10px var(--ancient-gold);
 }
 
 .rune {
@@ -206,6 +247,12 @@ html {
   cursor: help;
   transition: all 0.4s ease;
   animation: hermetic-float 12s ease-in-out infinite;
+}
+
+.hermetic-symbol.pattern-active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.3);
+  text-shadow: 0 0 15px var(--ancient-gold);
 }
 
 .hermetic-symbol:hover {
@@ -377,11 +424,59 @@ html {
   border: 1px solid #00ff00;
   animation: cheat-glow 0.5s ease-out;
   z-index: 9999;
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
 }
 
 .cheat-text {
   text-align: center;
   font-weight: bold;
+}
+
+/* Touch Pattern Indicator */
+.touch-pattern-indicator {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(74, 59, 92, 0.9);
+  color: var(--lunar-silver);
+  padding: 0.8rem 1.5rem;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--mystic-purple);
+  animation: pattern-glow 0.5s ease-out;
+  z-index: 9999;
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.pattern-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Motion Indicator */
+.motion-indicator {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(45, 49, 66, 0.8);
+  color: var(--ethereal-blue);
+  padding: 0.5rem 1rem;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--ethereal-blue);
+  z-index: 9999;
+  border-radius: 2px;
+  backdrop-filter: blur(5px);
+}
+
+.motion-text {
+  text-align: center;
 }
 
 /* Lunar Phase Indicator */
@@ -838,7 +933,7 @@ html {
 
 /* Title Styling */
 .obsidian-title {
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 100;
   letter-spacing: 0.15em;
   margin-bottom: 2rem;
@@ -860,7 +955,7 @@ html {
 }
 
 .obsidian-subtitle {
-  font-size: 1rem;
+  font-size: clamp(1rem, 3vw, 1.4rem);
   font-weight: 100;
   letter-spacing: 0.1em;
   color: var(--muted-stone);
@@ -871,7 +966,7 @@ html {
 }
 
 .ancient-script {
-  font-size: 0.8rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
   color: var(--ancient-gold);
   font-family: 'Times', serif;
   opacity: 0.4;
@@ -905,7 +1000,7 @@ html {
 }
 
 .codex-text {
-  font-size: 0.6rem;
+  font-size: clamp(0.6rem, 1.5vw, 0.8rem);
   color: var(--muted-stone);
   font-family: 'SF Mono', monospace;
   letter-spacing: 0.15em;
@@ -918,7 +1013,7 @@ html {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  font-size: 0.5rem;
+  font-size: clamp(0.5rem, 1.2vw, 0.7rem);
   color: var(--ancient-gold);
   font-family: 'Times', serif;
 }
@@ -966,7 +1061,7 @@ html {
 }
 
 .about-text {
-  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
   font-weight: 100;
   line-height: 1.6;
   color: var(--carved-grey);
@@ -979,7 +1074,7 @@ html {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  font-size: 0.6rem;
+  font-size: clamp(0.6rem, 1.5vw, 0.8rem);
   color: var(--ancient-gold);
   font-family: 'Times', serif;
   opacity: 0.7;
@@ -1047,7 +1142,7 @@ html {
 }
 
 .contact-text {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
   font-weight: 100;
   color: var(--carved-grey);
   line-height: 1.8;
@@ -1061,11 +1156,15 @@ html {
   font-weight: 100;
   transition: all 0.4s ease;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 2px;
+  display: inline-block;
 }
 
 .contact-email:hover {
   color: var(--ancient-gold);
   text-shadow: 0 0 4px rgba(139, 125, 107, 0.3);
+  background: rgba(122, 122, 122, 0.05);
 }
 
 .contact-warning {
@@ -1073,7 +1172,7 @@ html {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  font-size: 0.5rem;
+  font-size: clamp(0.5rem, 1.2vw, 0.7rem);
   color: var(--muted-stone);
   font-family: 'SF Mono', monospace;
   opacity: 0.6;
@@ -1090,8 +1189,8 @@ html {
 }
 
 .contact-icon {
-  width: 48px;
-  height: 48px;
+  width: clamp(48px, 8vw, 64px);
+  height: clamp(48px, 8vw, 64px);
   color: var(--stone-shadow);
   stroke-width: 0.5;
   animation: void-pulse 8s ease-in-out infinite;
@@ -1131,6 +1230,11 @@ html {
   z-index: 1;
 }
 
+.mobile-particles {
+  /* Simplified animation for mobile performance */
+  will-change: transform;
+}
+
 .particle {
   position: absolute;
   width: 1px;
@@ -1168,6 +1272,39 @@ html {
   top: 90%;
   left: 15%;
   animation-delay: 12s;
+}
+
+/* ==========================================================================
+   MOBILE INSTRUCTIONS
+   ========================================================================== */
+
+.mobile-instructions {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 18, 18, 0.85);
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--stone-shadow);
+  z-index: 1000;
+  font-size: 0.65rem;
+  font-family: 'SF Mono', monospace;
+  color: var(--muted-stone);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  animation: fade-in-up 1s ease 3s both;
+  max-width: calc(100vw - 2rem);
+}
+
+.instruction-item {
+  margin-bottom: 0.3rem;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.instruction-item:last-child {
+  margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -1302,6 +1439,22 @@ html {
   }
 }
 
+@keyframes pattern-glow {
+  0% { 
+    opacity: 0; 
+    transform: translate(-50%, -50%) scale(0.8); 
+    box-shadow: 0 0 0 rgba(74, 59, 92, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(74, 59, 92, 0.8);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translate(-50%, -50%) scale(1); 
+    box-shadow: 0 0 10px rgba(74, 59, 92, 0.6);
+  }
+}
+
 @keyframes matrix-fall {
   0% { 
     opacity: 1; 
@@ -1412,159 +1565,177 @@ html {
    RESPONSIVE DESIGN - MOBILE OPTIMIZATION
    ========================================================================== */
 
-/* Mobile devices (up to 480px) */
+/* Small mobile devices (up to 480px) */
 @media (max-width: 480px) {
-  /* Disable cursor on mobile */
-  body {
-    cursor: auto;
+  /* Typography enhancements for readability */
+  .obsidian-title {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
   }
   
-  .obsidian-cursor {
-    display: none;
+  .obsidian-subtitle {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    line-height: 1.4;
   }
   
-  /* Mobile esoteric elements positioning */
+  .about-text {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    line-height: 1.7;
+  }
+  
+  .contact-text {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    line-height: 1.8;
+  }
+  
+  /* Better spacing for mobile */
+  .hero-section,
+  .about-section,
+  .contact-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  /* Mobile esoteric elements - larger and more visible */
   .rune-sequence {
-    top: 0.5rem;
-    right: 0.5rem;
-    gap: 0.5rem;
+    top: 1rem;
+    right: 1rem;
+    gap: 0.7rem;
     flex-direction: column;
     align-items: flex-end;
   }
   
   .rune { 
-    font-size: 1rem;
-    opacity: 0.6;
-  }
-  
-  .hermetic-symbol {
-    top: 0.5rem;
     font-size: 1.4rem;
     opacity: 0.6;
   }
   
-  /* Stack cosmic data vertically on mobile */
-  .cosmic-coordinates {
-    top: 3rem;
-    right: 0.5rem;
-    font-size: 0.35rem;
-    line-height: 1.4;
-    opacity: 0.4;
-  }
-  
-  .geometric-constants {
-    bottom: 0.5rem;
-    right: 0.5rem;
-    font-size: 0.35rem;
-    line-height: 1.6;
-    opacity: 0.35;
-  }
-  
-  .astral-positions {
-    top: 3rem;
-    left: 0.5rem;
-    font-size: 0.35rem;
-    line-height: 1.4;
-    opacity: 0.4;
-  }
-  
-  .universal-constants {
-    bottom: 0.5rem;
-    left: 0.5rem;
-    font-size: 0.35rem;
-    line-height: 1.6;
-    opacity: 0.3;
-  }
-  
-  /* Mobile lunar and temporal indicators */
-  .lunar-indicator {
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .lunar-symbol {
-    font-size: 1.8rem;
-    opacity: 0.5;
-  }
-  
-  .temporal-mystery {
-    bottom: 4rem;
-    opacity: 0.5;
-  }
-  
-  .temporal-phase {
-    font-size: 0.4rem;
-  }
-  
-  .mystical-time {
-    font-size: 0.35rem;
-  }
-  
-  .planetary-hour {
-    font-size: 0.3rem;
-  }
-  
-  /* Mobile alchemical orbs - repositioned */
-  .alchemical-orb.top-left { 
-    top: 6rem; 
-    left: 0.5rem;
-    opacity: 0.4; 
-  }
-  .alchemical-orb.top-right { 
-    top: 6rem; 
-    right: 0.5rem;
-    opacity: 0.4; 
-  }
-  .alchemical-orb.bottom-left { 
-    bottom: 6rem; 
-    left: 0.5rem;
-    opacity: 0.4; 
-  }
-  .alchemical-orb.bottom-right { 
-    bottom: 6rem; 
-    right: 0.5rem;
-    opacity: 0.4; 
-  }
-  
-  .alchemical-symbol {
-    font-size: 1.1rem;
-  }
-  
-  /* Mobile sacred geometry - smaller and more subtle */
-  .sacred-geometry {
-    opacity: 0.02;
-  }
-  
-  .geometry-pattern {
+  .hermetic-symbol {
+    top: 1rem;
     font-size: 2rem;
-  }
-  
-  /* Mobile hero section */
-  .sigil-constellation {
-    height: 120px;
-    margin-bottom: 3rem;
-  }
-  
-  .sigil-shen { 
-    font-size: 1.8rem;
     opacity: 0.6;
   }
   
+  /* Stack cosmic data vertically with better visibility */
+  .cosmic-coordinates {
+    top: 4rem;
+    right: 1rem;
+    font-size: 0.45rem;
+    line-height: 1.6;
+    opacity: 0.5;
+  }
+  
+  .geometric-constants {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.45rem;
+    line-height: 1.8;
+    opacity: 0.45;
+  }
+  
+  .astral-positions {
+    top: 4rem;
+    left: 1rem;
+    font-size: 0.45rem;
+    line-height: 1.6;
+    opacity: 0.5;
+  }
+  
+  .universal-constants {
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.45rem;
+    line-height: 1.8;
+    opacity: 0.4;
+  }
+  
+  /* Mobile lunar and temporal indicators - larger */
+  .lunar-indicator {
+    bottom: 3rem;
+  }
+  
+  .lunar-symbol {
+    font-size: 2.5rem;
+    opacity: 0.6;
+  }
+  
+  .temporal-mystery {
+    bottom: 6rem;
+    opacity: 0.6;
+  }
+  
+  .temporal-phase {
+    font-size: 0.6rem;
+  }
+  
+  .mystical-time {
+    font-size: 0.5rem;
+  }
+  
+  .planetary-hour {
+    font-size: 0.45rem;
+  }
+  
+  /* Mobile alchemical orbs - better positioned */
+  .alchemical-orb.top-left { 
+    top: 7rem; 
+    left: 1rem;
+    opacity: 0.5; 
+  }
+  .alchemical-orb.top-right { 
+    top: 7rem; 
+    right: 1rem;
+    opacity: 0.5; 
+  }
+  .alchemical-orb.bottom-left { 
+    bottom: 8rem; 
+    left: 1rem;
+    opacity: 0.5; 
+  }
+  .alchemical-orb.bottom-right { 
+    bottom: 8rem; 
+    right: 1rem;
+    opacity: 0.5; 
+  }
+  
+  .alchemical-symbol {
+    font-size: 1.5rem;
+  }
+  
+  /* Mobile sacred geometry */
+  .sacred-geometry {
+    opacity: 0.03;
+  }
+  
+  .geometry-pattern {
+    font-size: 2.5rem;
+  }
+  
+  /* Mobile hero sigils */
+  .sigil-constellation {
+    height: 100px;
+    margin-bottom: 2rem;
+  }
+  
+  .sigil-shen { 
+    font-size: 2rem;
+    opacity: 0.7;
+  }
+  
   .sigil-ring { 
-    width: 56px; 
-    height: 56px; 
+    width: 60px; 
+    height: 60px; 
   }
   
   .sigil-outer { 
-    width: 84px; 
-    height: 84px; 
+    width: 90px; 
+    height: 90px; 
   }
   
   .sigil-secret { 
-    width: 12px; 
-    height: 12px;
-    opacity: 0.2;
+    width: 20px; 
+    height: 20px;
+    opacity: 0.3;
   }
   
   /* Mobile hidden revelation */
@@ -1575,206 +1746,142 @@ html {
   }
   
   .esoteric-glyph {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   
   .codex-text {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
   }
   
-  /* Mobile section adjustments */
-  .hero-section,
-  .about-section,
-  .contact-section {
-    padding: 2rem 1rem;
-  }
-  
-  /* Mobile text adjustments */
-  .about-text {
-    font-size: clamp(1rem, 4vw, 1.4rem);
-  }
-  
-  .contact-text {
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
-  }
-  
-  /* Mobile contact email - make more touch-friendly */
+  /* Mobile contact improvements */
   .contact-email {
-    display: inline-block;
-    padding: 0.5rem;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    padding: 0.7rem 1rem;
     margin: 0.5rem;
-    border: 1px solid rgba(122, 122, 122, 0.2);
-    border-radius: 2px;
-    transition: all 0.3s ease;
+    border: 1px solid rgba(122, 122, 122, 0.3);
+    border-radius: 4px;
   }
   
   .contact-email:active {
-    background: rgba(122, 122, 122, 0.1);
+    background: rgba(122, 122, 122, 0.15);
     transform: scale(0.98);
   }
   
-  /* Mobile details sections - stack vertically */
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* Mobile details sections */
   .inscription-details,
   .contact-warning {
     flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  /* Mobile cheat code indicator */
-  .cheat-code-indicator {
-    padding: 1rem 1.5rem;
+    gap: 0.7rem;
     font-size: 0.7rem;
-    max-width: calc(100vw - 2rem);
   }
   
-  /* Mobile scrollbar adjustments */
+  /* Mobile scrollbar */
   ::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
   }
   
-  /* Mobile hold-to-reveal enhancements */
+  /* Enhanced mobile hold-to-reveal */
   .reveal-esoteric .rune-sequence {
-    opacity: 0.8;
-  }
-  
-  .reveal-esoteric .hermetic-symbol {
     opacity: 0.9;
   }
   
-  .reveal-esoteric .cosmic-coordinates {
-    opacity: 0.6;
+  .reveal-esoteric .hermetic-symbol {
+    opacity: 1;
   }
   
-  .reveal-esoteric .geometric-constants {
-    opacity: 0.55;
-  }
-  
-  .reveal-esoteric .astral-positions {
-    opacity: 0.6;
-  }
-  
+  .reveal-esoteric .cosmic-coordinates,
+  .reveal-esoteric .geometric-constants,
+  .reveal-esoteric .astral-positions,
   .reveal-esoteric .universal-constants {
-    opacity: 0.5;
+    opacity: 0.8;
   }
   
   .reveal-esoteric .lunar-symbol {
-    opacity: 0.8;
+    opacity: 0.9;
   }
   
   .reveal-esoteric .temporal-indicator {
-    opacity: 0.8;
+    opacity: 0.9;
   }
   
   .reveal-esoteric .alchemical-orb {
-    opacity: 0.7;
+    opacity: 0.8;
   }
   
   .reveal-esoteric .sacred-geometry {
-    opacity: 0.06;
+    opacity: 0.08;
+  }
+  
+  /* Mobile instruction positioning */
+  .mobile-instructions {
+    bottom: 0.5rem;
+    font-size: 0.7rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .instruction-item {
+    margin-bottom: 0.4rem;
   }
 }
 
-/* Tablet portrait (481px to 768px) */
+/* Medium mobile devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-  .rune-sequence {
-    top: 0.75rem;
-    right: 1rem;
-    gap: 0.75rem;
+  .obsidian-title {
+    font-size: clamp(3rem, 10vw, 5rem);
+  }
+  
+  .about-text {
+    font-size: clamp(1.4rem, 4.5vw, 2rem);
+  }
+  
+  .contact-text {
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
   }
   
   .rune { 
-    font-size: 1.1rem;
-    opacity: 0.5;
-  }
-  
-  .hermetic-symbol {
-    top: 0.75rem;
-    font-size: 1.6rem;
-    opacity: 0.6;
-  }
-  
-  .cosmic-coordinates {
-    top: 2.5rem;
-    right: 1rem;
-    font-size: 0.4rem;
-    opacity: 0.35;
-  }
-  
-  .geometric-constants {
-    bottom: 0.75rem;
-    right: 1rem;
-    font-size: 0.4rem;
-    opacity: 0.3;
-  }
-  
-  .astral-positions {
-    top: 2.5rem;
-    left: 1rem;
-    font-size: 0.4rem;
-    opacity: 0.35;
-  }
-  
-  .universal-constants {
-    bottom: 0.75rem;
-    left: 1rem;
-    font-size: 0.4rem;
-    opacity: 0.25;
-  }
-  
-  .lunar-indicator {
-    bottom: 2.5rem;
-  }
-  
-  .lunar-symbol {
-    font-size: 2rem;
-    opacity: 0.45;
-  }
-  
-  .temporal-mystery {
-    bottom: 5rem;
-    opacity: 0.45;
-  }
-  
-  .alchemical-orb.top-left { top: 5rem; left: 1rem; opacity: 0.35; }
-  .alchemical-orb.top-right { top: 5rem; right: 3rem; opacity: 0.35; }
-  .alchemical-orb.bottom-left { bottom: 5rem; left: 1rem; opacity: 0.35; }
-  .alchemical-orb.bottom-right { bottom: 5rem; right: 1rem; opacity: 0.35; }
-  
-  .alchemical-symbol {
-    font-size: 1.2rem;
-  }
-  
-  .sacred-geometry {
-    opacity: 0.03;
-  }
-  
-  .geometry-pattern {
-    font-size: 2.5rem;
-  }
-  
-  .sigil-constellation {
-    height: 130px;
-    margin-bottom: 3.5rem;
-  }
-  
-  .sigil-shen { 
-    font-size: 2rem;
+    font-size: 1.3rem;
     opacity: 0.55;
   }
   
-  .sigil-ring { width: 62px; height: 62px; }
-  .sigil-outer { width: 94px; height: 94px; }
-  .sigil-secret { width: 14px; height: 14px; opacity: 0.15; }
-  
-  .codex-unlock {
-    padding: 1.75rem;
-    margin: 0 1.5rem;
+  .hermetic-symbol {
+    font-size: 1.8rem;
+    opacity: 0.65;
   }
   
-  .hero-section,
-  .about-section,
-  .contact-section {
-    padding: 3rem 1.5rem;
+  .cosmic-coordinates,
+  .geometric-constants,
+  .astral-positions,
+  .universal-constants {
+    font-size: 0.5rem;
+    opacity: 0.4;
+  }
+  
+  .lunar-symbol {
+    font-size: 2.3rem;
+    opacity: 0.55;
+  }
+  
+  .temporal-indicator {
+    opacity: 0.55;
+  }
+  
+  .alchemical-symbol {
+    font-size: 1.4rem;
+  }
+  
+  .alchemical-orb {
+    opacity: 0.45;
+  }
+  
+  .sigil-shen { 
+    font-size: 2.1rem;
+    opacity: 0.65;
   }
 }
 
@@ -1782,70 +1889,112 @@ html {
 @media (min-width: 769px) and (max-width: 1024px) {
   .cosmic-coordinates {
     right: 8rem;
-    font-size: 0.45rem;
-    opacity: 0.3;
+    opacity: 0.35;
   }
   
   .alchemical-orb.top-right { 
     right: 4rem; 
-    opacity: 0.3;
+    opacity: 0.35;
   }
   
   .sacred-geometry {
-    opacity: 0.035;
+    opacity: 0.04;
   }
   
   .sigil-shen { 
-    font-size: 2.1rem;
-    opacity: 0.5;
+    opacity: 0.6;
+  }
+}
+
+/* Touch-specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Enhanced touch targets */
+  .sigil-secret,
+  .alchemical-orb,
+  .lunar-phase,
+  .temporal-indicator {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Touch feedback */
+  .sigil-secret:active,
+  .alchemical-orb:active,
+  .lunar-phase:active,
+  .temporal-indicator:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Better touch visibility for esoteric elements */
+  .reveal-esoteric .rune-sequence {
+    opacity: 1;
+  }
+  
+  .reveal-esoteric .hermetic-symbol {
+    opacity: 1;
+  }
+  
+  .reveal-esoteric .cosmic-coordinates,
+  .reveal-esoteric .geometric-constants,
+  .reveal-esoteric .astral-positions,
+  .reveal-esoteric .universal-constants {
+    opacity: 0.8;
+  }
+  
+  .reveal-esoteric .lunar-symbol {
+    opacity: 1;
+  }
+  
+  .reveal-esoteric .temporal-indicator {
+    opacity: 1;
+  }
+  
+  .reveal-esoteric .alchemical-orb {
+    opacity: 0.9;
+  }
+  
+  .reveal-esoteric .sacred-geometry {
+    opacity: 0.1;
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .particle {
+    animation-duration: 30s;
+  }
+  
+  .sacred-geometry {
+    animation-duration: 40s;
+  }
+  
+  /* Simpler animations for mobile performance */
+  @keyframes mobile-drift {
+    0%, 100% { transform: rotate(0deg); opacity: 0.03; }
+    50% { transform: rotate(180deg); opacity: 0.05; }
+  }
+  
+  .sacred-bg-1,
+  .sacred-bg-2,
+  .sacred-bg-3,
+  .sacred-bg-4,
+  .sacred-bg-5 {
+    animation: mobile-drift 25s linear infinite;
+  }
+  
+  /* Optimize mobile elements */
+  .mobile-esoteric * {
+    will-change: auto;
   }
 }
 
 /* Large screens (1025px and up) - Enhanced esoteric visibility */
 @media (min-width: 1025px) {
-  .rune-sequence {
-    opacity: 0.45;
-  }
-  
-  .hermetic-symbol {
-    opacity: 0.55;
-  }
-  
-  .cosmic-coordinates {
-    opacity: 0.3;
-  }
-  
-  .geometric-constants {
-    opacity: 0.25;
-  }
-  
-  .astral-positions {
-    opacity: 0.28;
-  }
-  
-  .universal-constants {
-    opacity: 0.22;
-  }
-  
-  .lunar-symbol {
-    opacity: 0.4;
-  }
-  
-  .temporal-indicator {
-    opacity: 0.4;
-  }
-  
-  .alchemical-orb {
-    opacity: 0.3;
-  }
-  
-  .sacred-geometry {
-    opacity: 0.045;
-  }
-}
-
-/* Ultra-wide screens (1440px and up) - Maximum esoteric presence */
-@media (min-width: 1440px) {
   .rune-sequence {
     opacity: 0.5;
   }
@@ -1884,87 +2033,5 @@ html {
   
   .sacred-geometry {
     opacity: 0.05;
-  }
-}
-
-/* Touch-specific optimizations */
-@media (hover: none) and (pointer: coarse) {
-  /* Enhanced touch targets */
-  .sigil-secret,
-  .alchemical-orb,
-  .lunar-phase,
-  .temporal-indicator {
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Touch feedback */
-  .sigil-secret:active,
-  .alchemical-orb:active,
-  .lunar-phase:active,
-  .temporal-indicator:active {
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
-  }
-  
-  /* Better touch visibility for esoteric elements */
-  .reveal-esoteric .rune-sequence {
-    opacity: 0.9;
-  }
-  
-  .reveal-esoteric .hermetic-symbol {
-    opacity: 1;
-  }
-  
-  .reveal-esoteric .cosmic-coordinates,
-  .reveal-esoteric .geometric-constants,
-  .reveal-esoteric .astral-positions,
-  .reveal-esoteric .universal-constants {
-    opacity: 0.7;
-  }
-  
-  .reveal-esoteric .lunar-symbol {
-    opacity: 0.9;
-  }
-  
-  .reveal-esoteric .temporal-indicator {
-    opacity: 0.9;
-  }
-  
-  .reveal-esoteric .alchemical-orb {
-    opacity: 0.8;
-  }
-  
-  .reveal-esoteric .sacred-geometry {
-    opacity: 0.1;
-  }
-}
-
-/* Performance optimizations for mobile */
-@media (max-width: 768px) {
-  /* Reduce animation complexity on mobile */
-  .particle {
-    animation-duration: 30s;
-  }
-  
-  .sacred-geometry {
-    animation-duration: 40s;
-  }
-  
-  /* Simpler animations for mobile performance */
-  @keyframes mobile-drift {
-    0%, 100% { transform: rotate(0deg); opacity: 0.02; }
-    50% { transform: rotate(180deg); opacity: 0.04; }
-  }
-  
-  .sacred-bg-1,
-  .sacred-bg-2,
-  .sacred-bg-3,
-  .sacred-bg-4,
-  .sacred-bg-5 {
-    animation: mobile-drift 25s linear infinite;
   }
 }
