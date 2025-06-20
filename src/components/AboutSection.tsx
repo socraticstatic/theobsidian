@@ -4,9 +4,10 @@ import { Circle } from 'lucide-react';
 interface AboutSectionProps {
   scrollY: number;
   onLongPress: () => void;
+  isMobile?: boolean;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress }) => {
+const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress, isMobile = false }) => {
   return (
     <section className="about-section">
       <div className="stone-texture"></div>
@@ -16,8 +17,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress }) => 
           transform: `translateY(${scrollY * 0.1}px)`,
           opacity: Math.max(0.3, 1 - (scrollY - 400) / 600)
         }}
-        onTouchStart={onLongPress}
-        onMouseDown={onLongPress}
       >
         <div className="about-inscription">
           <p className="about-text carved-deep">

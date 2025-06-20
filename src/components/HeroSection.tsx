@@ -14,9 +14,16 @@ const EgyptianSymbol = ({ className, onClick }: { className?: string; onClick?: 
 interface HeroSectionProps {
   showHidden: boolean;
   onSecretClick: (symbol: string) => void;
+  deviceOrientation?: number;
+  isMobile?: boolean;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ showHidden, onSecretClick }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ 
+  showHidden, 
+  onSecretClick, 
+  deviceOrientation = 0,
+  isMobile = false 
+}) => {
   return (
     <section className="hero-section">
       <div className="obsidian-surface"></div>

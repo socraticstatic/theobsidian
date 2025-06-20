@@ -4,11 +4,13 @@ import { Hexagon } from 'lucide-react';
 interface ContactSectionProps {
   isHexagonSpinning: boolean;
   onHexagonMouseDown: () => void;
+  isMobile?: boolean;
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({ 
   isHexagonSpinning, 
-  onHexagonMouseDown 
+  onHexagonMouseDown,
+  isMobile = false
 }) => {
   return (
     <section className="contact-section">

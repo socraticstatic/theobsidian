@@ -25,11 +25,18 @@ function App() {
   const [motionIntensity, setMotionIntensity] = useState(0);
   const [touchPattern, setTouchPattern] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const [holdTimeout, setHoldTimeout] = useState<NodeJS.Timeout | null>(null);
 
   // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+      const isMobileDevice = (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        window.innerWidth <= 768
+      );
+      setIsMobile(isMobileDevice);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -53,45 +60,119 @@ function App() {
     };
   }, [isMobile]);
 
-  // Enhanced hold-to-reveal for mobile and desktop
+  // Improved hold-to-reveal system
   useEffect(() => {
-    const handleStart = (e: MouseEvent | TouchEvent) => {
+    let startTime = 0;
+    let isCurrentlyHolding = false;
+
+    const handleStart = (e: Event) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button, a, input, select, textarea')) {
+      
+      // Don't trigger on interactive elements
+      if (target.tagName === 'BUTTON' || 
+          target.tagName === 'A' || 
+          target.tagName === 'INPUT' ||
+          target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen, .alchemical-orb, .lunar-phase, .temporal-indicator')) {
         return;
       }
-      setIsHolding(true);
-      if (isMobile) {
-        triggerVibration(vibrationPatterns.longPress);
+
+      // Prevent default to avoid conflicts
+      e.preventDefault();
+      
+      startTime = Date.now();
+      isCurrentlyHolding = true;
+
+      // Clear any existing timeout
+      if (holdTimeout) {
+        clearTimeout(holdTimeout);
       }
+
+      // Set a timeout for hold detection (500ms)
+      const timeout = setTimeout(() => {
+        if (isCurrentlyHolding) {
+          setIsHolding(true);
+          setShowHidden(true);
+          if (isMobile) {
+            triggerVibration(vibrationPatterns.longPress);
+          }
+        }
+      }, 500);
+
+      setHoldTimeout(timeout);
     };
 
     const handleEnd = () => {
-      setIsHolding(false);
+      isCurrentlyHolding = false;
+      
+      if (holdTimeout) {
+        clearTimeout(holdTimeout);
+        setHoldTimeout(null);
+      }
+
+      // Only hide if we were actually showing
+      if (isHolding) {
+        setTimeout(() => {
+          setIsHolding(false);
+          setShowHidden(false);
+        }, 200); // Small delay for better UX
+      }
     };
 
-    const events = isMobile 
-      ? [
-          ['touchstart', handleStart],
-          ['touchend', handleEnd],
-          ['touchcancel', handleEnd]
-        ]
-      : [
-          ['mousedown', handleStart],
-          ['mouseup', handleEnd],
-          ['mouseleave', handleEnd]
-        ];
+    const handleMove = (e: TouchEvent) => {
+      // If user moves finger too much, cancel hold
+      if (isCurrentlyHolding && e.touches.length > 0) {
+        const touch = e.touches[0];
+        const moveDistance = Math.abs(touch.clientX - (e.target as any).startX) + 
+                           Math.abs(touch.clientY - (e.target as any).startY);
+        
+        if (moveDistance > 30) { // 30px threshold
+          isCurrentlyHolding = false;
+          if (holdTimeout) {
+            clearTimeout(holdTimeout);
+            setHoldTimeout(null);
+          }
+        }
+      }
+    };
 
-    events.forEach(([event, handler]) => {
-      document.addEventListener(event, handler as EventListener);
-    });
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        // Store initial position for move detection
+        const touch = e.touches[0];
+        (e.target as any).startX = touch.clientX;
+        (e.target as any).startY = touch.clientY;
+      }
+      handleStart(e);
+    };
+
+    if (isMobile) {
+      document.addEventListener('touchstart', handleTouchStart, { passive: false });
+      document.addEventListener('touchend', handleEnd, { passive: true });
+      document.addEventListener('touchcancel', handleEnd, { passive: true });
+      document.addEventListener('touchmove', handleMove, { passive: true });
+    } else {
+      document.addEventListener('mousedown', handleStart);
+      document.addEventListener('mouseup', handleEnd);
+      document.addEventListener('mouseleave', handleEnd);
+    }
 
     return () => {
-      events.forEach(([event, handler]) => {
-        document.removeEventListener(event, handler as EventListener);
-      });
+      if (holdTimeout) {
+        clearTimeout(holdTimeout);
+      }
+
+      if (isMobile) {
+        document.removeEventListener('touchstart', handleTouchStart);
+        document.removeEventListener('touchend', handleEnd);
+        document.removeEventListener('touchcancel', handleEnd);
+        document.removeEventListener('touchmove', handleMove);
+      } else {
+        document.removeEventListener('mousedown', handleStart);
+        document.removeEventListener('mouseup', handleEnd);
+        document.removeEventListener('mouseleave', handleEnd);
+      }
     };
-  }, [isMobile]);
+  }, [isMobile, holdTimeout, isHolding]);
 
   // Device motion handlers
   const handleOrientationChange = (orientation: number) => {
@@ -447,9 +528,10 @@ function App() {
       {/* Mobile Instructions Overlay */}
       {isMobile && (
         <div className="mobile-instructions">
-          <div className="instruction-item">Hold to reveal mysteries</div>
-          <div className="instruction-item">Shake to awaken the void</div>
-          <div className="instruction-item">Triple tap for ancient secrets</div>
+          <div className="instruction-item">📱 Hold anywhere to reveal mysteries</div>
+          <div className="instruction-item">📳 Shake device to awaken the void</div>
+          <div className="instruction-item">👆 Triple tap for ancient secrets</div>
+          <div className="instruction-item">🤏 Multi-touch for mystical powers</div>
         </div>
       )}
     </div>

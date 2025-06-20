@@ -22,13 +22,24 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
+      // Only handle if it's not a hold gesture (we don't want to conflict with hold-to-reveal)
       if (e.touches.length > 1) {
         onMultiTouch(e.touches.length);
         triggerVibration(vibrationPatterns.mysticalPulse);
       }
 
+      // Only track single touches for swipe detection
       if (e.touches.length === 1) {
         const touch = e.touches[0];
+        const target = e.target as HTMLElement;
+        
+        // Don't track swipes on interactive elements
+        if (target.tagName === 'BUTTON' || 
+            target.tagName === 'A' || 
+            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen')) {
+          return;
+        }
+        
         setStartTouch({ x: touch.clientX, y: touch.clientY });
       }
     };
@@ -41,6 +52,15 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
         const deltaX = touch.clientX - startTouch.x;
         const deltaY = touch.clientY - startTouch.y;
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const target = e.target as HTMLElement;
+
+        // Don't handle taps on interactive elements
+        if (target.tagName === 'BUTTON' || 
+            target.tagName === 'A' || 
+            target.closest('button, a, input, select, textarea, .contact-icon, .sigil-shen')) {
+          setStartTouch(null);
+          return;
+        }
 
         // If it's a tap (small movement)
         if (distance < 30) {
@@ -66,8 +86,8 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
             }
             setTapCount(0);
           }, 500);
-        } else {
-          // It's a swipe
+        } else if (distance > 50) {
+          // It's a swipe - only if distance is significant
           let direction = '';
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
             direction = deltaX > 0 ? 'right' : 'left';
@@ -100,6 +120,7 @@ const TouchGestures: React.FC<TouchGesturesProps> = ({
       setStartTouch(null);
     };
 
+    // Use passive: false only where needed to avoid conflicts
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
