@@ -638,16 +638,16 @@ html {
   border-top: 1px solid var(--stone-shadow);
 }
 
-/* Alchemical Orbs - 25% Opacity */
+/* Alchemical Orbs - Visible Corner Elements */
 .alchemical-orb {
   position: absolute;
   pointer-events: auto;
   transition: all 0.3s ease;
-  opacity: 0.25; /* Set to 25% opacity */
+  opacity: 0.6; /* Increased opacity to make them visible */
 }
 
 .alchemical-orb:hover {
-  opacity: 0.8;
+  opacity: 1;
   transform: scale(1.2);
 }
 
@@ -773,7 +773,7 @@ html {
 }
 
 .reveal-esoteric .alchemical-orb {
-  opacity: 0.5;
+  opacity: 0.9; /* More visible when revealed */
 }
 
 .reveal-esoteric .sacred-geometry {
@@ -1759,26 +1759,26 @@ html {
     font-size: 0.45rem;
   }
   
-  /* Mobile alchemical orbs - better positioned with 25% opacity */
+  /* Mobile alchemical orbs - better positioned and more visible */
   .alchemical-orb.top-left { 
     top: 7rem; 
     left: 1rem;
-    opacity: 0.25; 
+    opacity: 0.6; 
   }
   .alchemical-orb.top-right { 
     top: 7rem; 
     right: 1rem;
-    opacity: 0.25; 
+    opacity: 0.6; 
   }
   .alchemical-orb.bottom-left { 
     bottom: 8rem; 
     left: 1rem;
-    opacity: 0.25; 
+    opacity: 0.6; 
   }
   .alchemical-orb.bottom-right { 
     bottom: 8rem; 
     right: 1rem;
-    opacity: 0.25; 
+    opacity: 0.6; 
   }
   
   .alchemical-symbol {
@@ -1869,7 +1869,7 @@ html {
     width: 4px;
   }
   
-  /* Enhanced mobile hold-to-reveal with 25% corner opacity */
+  /* Enhanced mobile hold-to-reveal with better corner visibility */
   .reveal-esoteric .rune-sequence {
     opacity: 0.9;
   }
@@ -1894,7 +1894,7 @@ html {
   }
   
   .reveal-esoteric .alchemical-orb {
-    opacity: 0.5; /* Even when revealed, keep some subtlety */
+    opacity: 0.9; /* Highly visible when revealed on mobile */
   }
   
   .reveal-esoteric .sacred-geometry {
@@ -1960,7 +1960,7 @@ html {
   }
   
   .alchemical-orb {
-    opacity: 0.25;
+    opacity: 0.6;
   }
   
   .sigil-shen { 
@@ -1978,11 +1978,11 @@ html {
   
   .alchemical-orb.top-right { 
     right: 4rem; 
-    opacity: 0.25;
+    opacity: 0.6;
   }
   
   .alchemical-orb {
-    opacity: 0.25;
+    opacity: 0.6;
   }
   
   .sacred-geometry {
@@ -2042,7 +2042,7 @@ html {
   }
   
   .reveal-esoteric .alchemical-orb {
-    opacity: 0.5;
+    opacity: 1;
   }
   
   .reveal-esoteric .sacred-geometry {
@@ -2081,7 +2081,7 @@ html {
   }
 }
 
-/* Large screens (1025px and up) - Enhanced esoteric visibility with 25% corner opacity */
+/* Large screens (1025px and up) - Enhanced esoteric visibility */
 @media (min-width: 1025px) {
   .rune-sequence {
     opacity: 0.5;
@@ -2116,7 +2116,7 @@ html {
   }
   
   .alchemical-orb {
-    opacity: 0.25;
+    opacity: 0.6; /* More visible on large screens */
   }
   
   .sacred-geometry {
