@@ -10,7 +10,7 @@
   INITIATE:VOID-WALKER
 ```
 
-> *"A consultancy devoted to elegant systems and silent influence."*  
+> *"A consultancy devoted to elegance and balance."*  
 > — Carved upon obsidian stone, translated from ancient script ⵔⴱⵙⵉⴷⵉⴰⵏ
 
 ---

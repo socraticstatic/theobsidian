@@ -20,7 +20,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress, isMob
       >
         <div className="about-inscription">
           <p className="about-text carved-deep">
-            A consultancy devoted to elegant systems and silent influence.
+            A consultancy devoted to elegance and balance.
           </p>
           <div className="inscription-details">
             <span className="detail-rune">⚹</span>
