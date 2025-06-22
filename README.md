@@ -1,6 +1,6 @@
 # ◊ THE OBSIDIAN ◊
 ### *Invitation Only Design Agency*
-#### *Anno Domini Unknown • Est. in the Void*
+#### *Durante la Convergencia Eterna • Est. in the Void*
 
 ```
     𓍶
@@ -217,7 +217,7 @@ Built with reverence for:
 INITIATE RECOGNIZED
 ACCESS GRANTED  
 THE VOID ACKNOWLEDGES YOUR PRESENCE
-ᛟ Est. Anno Domini Unknown ᛟ
+ᛟ Est. Durante la Convergencia Eterna ᛟ
 ```
 
 *© The Obsidian • Invitation Only • Silent Influence*

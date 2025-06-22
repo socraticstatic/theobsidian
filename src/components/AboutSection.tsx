@@ -19,12 +19,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress, isMob
         }}
       >
         <div className="about-inscription">
-          <p className="about-text carved-deep">
+          <p className="about-text carved-deep no-break">
             A consultancy devoted to elegance and balance.
           </p>
           <div className="inscription-details">
             <span className="detail-rune">⚹</span>
-            <span className="detail-text">Est. Anno Domini Unknown</span>
+            <span className="detail-text">Est. During the Eternal Convergence</span>
             <span className="detail-rune">⚹</span>
           </div>
         </div>
