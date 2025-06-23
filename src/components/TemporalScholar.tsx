@@ -26,6 +26,9 @@ const TemporalScholar: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Move lunar to component level so it's accessible in JSX
+  const lunar = getLunarPhase();
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -50,8 +53,7 @@ const TemporalScholar: React.FC = () => {
   const generateResponse = (userInput: string): string => {
     const input = userInput.toLowerCase();
 
-    // Get current data for context
-    const lunar = getLunarPhase();
+    // Get current data for context - lunar is now defined at component level
     const cosmic = getCosmicCoordinates();
     const geometric = getGeometricConstants();
     const astral = getAstralPositions();
@@ -252,8 +254,8 @@ const TemporalScholar: React.FC = () => {
                 </button>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="scholar-input">
           <div className="input-container">
