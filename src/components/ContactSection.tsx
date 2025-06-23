@@ -90,7 +90,7 @@ const ContactSection: React.FC = () => {
               value={formData.project}
               onChange={handleChange}
               className="form-input"
-              placeholder="Web Design, Branding, Consultation..."
+              placeholder="Branding, Web Development, Consultation..."
             />
           </div>
           

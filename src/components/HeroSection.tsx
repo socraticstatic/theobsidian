@@ -13,7 +13,7 @@ const HeroSection: React.FC = () => {
         </h1>
         
         <p className="hero-subtitle slide-up">
-          Invitation Only Design Agency
+          Invitation Only Agency
         </p>
         
         <div className="text-muted" style={{ fontSize: 'var(--text-sm)', letterSpacing: '0.2em' }}>
