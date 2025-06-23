@@ -122,7 +122,16 @@ export const getVedicAstrology = (birthDate?: Date): {
   ];
   
   const index = Math.floor((dayOfYear / 365.25) * 27) % 27;
-  return nakshatras[index];
+  const nakshatra = nakshatras[index];
+  
+  return {
+    nakshatra: nakshatra.name,
+    deity: nakshatra.deity,
+    symbol: nakshatra.symbol,
+    meaning: nakshatra.meaning,
+    nature: nakshatra.nature,
+    planetaryRuler: nakshatra.ruler
+  };
 };
 
 // Aztec Day Signs (Tonalpohualli)
@@ -512,7 +521,7 @@ export const getAncientDates = (): { mayan: string; egyptian: string; celtic: st
   return {
     mayan: `${mayanYear} • Baktun 14`,
     egyptian: `${now.getDate()} ${egyptianMonth}`,
-    celtic: `Moon of ${celticTree}`,
+    celtic: `Moon of ${celnicTree}`,
     hebrew: `${now.getDate()} ${hebrewMonth}`,
     chinese: `Year of ${chineseYear}`
   };

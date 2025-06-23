@@ -230,7 +230,7 @@ body {
   position: fixed;
   width: 20px;
   height: 20px;
-  border: 1px solid var(--accent-gold);
+  border: 1px solid #888888;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -246,7 +246,7 @@ body {
   left: 50%;
   width: 2px;
   height: 2px;
-  background: var(--accent-gold);
+  background: #888888;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
