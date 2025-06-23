@@ -521,7 +521,7 @@ export const getAncientDates = (): { mayan: string; egyptian: string; celtic: st
   return {
     mayan: `${mayanYear} • Baktun 14`,
     egyptian: `${now.getDate()} ${egyptianMonth}`,
-    celtic: `Moon of ${celnicTree}`,
+    celtic: `Moon of ${celticTree}`,
     hebrew: `${now.getDate()} ${hebrewMonth}`,
     chinese: `Year of ${chineseYear}`
   };
