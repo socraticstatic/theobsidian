@@ -71,7 +71,7 @@ body {
 
 .hero-sigil {
   font-size: var(--text-5xl);
-  color: var(--accent-gold);
+  color: #C0C0C0;
   margin-bottom: var(--space-xl);
   opacity: 0.8;
   transition: all var(--transition-medium);
