@@ -154,7 +154,7 @@ body {
 }
 
 .form-button {
-  background: linear-gradient(135deg, var(--accent-gold) 0%, #B8860B 100%);
+  background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
   color: var(--void-black);
   border: none;
   border-radius: 2px;
