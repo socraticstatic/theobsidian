@@ -1,0 +1,75 @@
+/* ==========================================================================
+   OBSIDIAN THEME - Color System & Core Variables
+   ========================================================================== */
+
+:root {
+  /* Core Obsidian Palette */
+  --void-black: #0B0B0B;
+  --obsidian-deep: #121212;
+  --stone-shadow: #1A1A1A;
+  --obsidian-mid: #181818;
+  
+  /* Text Colors */
+  --text-primary: #E8E8E8;
+  --text-secondary: #B8B8B8;
+  --text-muted: #888888;
+  --text-subtle: #666666;
+  
+  /* Accent Colors */
+  --accent-gold: #D4AF37;
+  --accent-silver: #C0C0C0;
+  --accent-ember: #FF6B35;
+  
+  /* Interactive States */
+  --hover-glow: rgba(212, 175, 55, 0.2);
+  --focus-ring: rgba(212, 175, 55, 0.4);
+  --active-scale: 0.98;
+  
+  /* Spacing System */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  
+  /* Shadows & Effects */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --glow-subtle: 0 0 10px rgba(212, 175, 55, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.6s ease;
+}
+
+/* Dark theme variations */
+[data-theme="dark"] {
+  --text-primary: #F5F5F5;
+  --text-secondary: #D0D0D0;
+}
+
+/* Light theme variations */
+[data-theme="light"] {
+  --void-black: #F8F8F8;
+  --obsidian-deep: #FFFFFF;
+  --stone-shadow: #E5E5E5;
+  --text-primary: #2D2D2D;
+  --text-secondary: #4A4A4A;
+  --text-muted: #666666;
+  --text-subtle: #888888;
+}

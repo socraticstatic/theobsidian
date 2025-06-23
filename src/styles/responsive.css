@@ -1,0 +1,153 @@
+/* ==========================================================================
+   RESPONSIVE DESIGN - Mobile-First Approach
+   ========================================================================== */
+
+/* Base Mobile Styles (up to 768px) */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-xl) var(--space-md);
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 100%;
+  }
+  
+  .hero-title {
+    font-size: clamp(var(--text-3xl), 10vw, var(--text-4xl));
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(var(--text-base), 4vw, var(--text-lg));
+  }
+  
+  .about-text {
+    font-size: clamp(var(--text-lg), 5vw, var(--text-xl));
+  }
+  
+  .contact-form {
+    max-width: 100%;
+  }
+  
+  .form-input,
+  .form-textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Simplified mobile mystical elements */
+  .rune-sequence {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    font-size: var(--text-base);
+    opacity: 0.2;
+  }
+  
+  .lunar-phase {
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    font-size: var(--text-xl);
+    opacity: 0.3;
+  }
+  
+  /* Hide cursor on mobile */
+  .obsidian-cursor {
+    display: none;
+  }
+  
+  /* Better touch targets */
+  .form-button {
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--text-lg);
+    min-height: 48px;
+  }
+}
+
+/* Tablet Styles (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  
+  .container {
+    max-width: 700px;
+  }
+  
+  .contact-form {
+    max-width: 450px;
+  }
+}
+
+/* Desktop Styles (1025px and up) */
+@media (min-width: 1025px) {
+  .section {
+    padding: var(--space-2xl);
+  }
+  
+  .container {
+    max-width: 800px;
+  }
+  
+  .contact-form {
+    max-width: 500px;
+  }
+  
+  /* Show mystical elements more prominently on desktop */
+  .rune-sequence {
+    opacity: 0.4;
+  }
+  
+  .lunar-phase {
+    opacity: 0.5;
+  }
+  
+  .mystical-overlay {
+    opacity: 0.1;
+  }
+}
+
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .section {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  
+  .container {
+    max-width: 900px;
+  }
+  
+  .hero-title {
+    font-size: var(--text-6xl);
+  }
+  
+  .about-text {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .text-carved {
+    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .mystical-overlay,
+  .obsidian-cursor,
+  .rune-sequence,
+  .lunar-phase {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .section {
+    min-height: auto;
+    page-break-inside: avoid;
+  }
+}

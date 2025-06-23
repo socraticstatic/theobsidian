@@ -1,0 +1,285 @@
+/* ==========================================================================
+   COMPONENT STYLES - Simplified and Readable
+   ========================================================================== */
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 300;
+  background: linear-gradient(135deg, var(--void-black) 0%, var(--obsidian-deep) 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+.text-carved {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: 200;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px var(--accent-gold);
+}
+
+/* Layout Components */
+.section {
+  min-height: 100vh;
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--void-black) 0%, var(--obsidian-deep) 100%);
+}
+
+.hero-title {
+  font-size: clamp(var(--text-4xl), 8vw, var(--text-6xl));
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: clamp(var(--text-lg), 3vw, var(--text-xl));
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  font-weight: 200;
+}
+
+.hero-sigil {
+  font-size: var(--text-5xl);
+  color: var(--accent-gold);
+  margin-bottom: var(--space-xl);
+  opacity: 0.8;
+  transition: all var(--transition-medium);
+}
+
+.hero-sigil:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* About Section */
+.about {
+  background: linear-gradient(135deg, var(--obsidian-deep) 0%, var(--stone-shadow) 100%);
+}
+
+.about-text {
+  font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
+  font-weight: 200;
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.about-details {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+/* Contact Section */
+.contact {
+  background: linear-gradient(135deg, var(--stone-shadow) 0%, var(--void-black) 100%);
+}
+
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input,
+.form-textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding: var(--space-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-base);
+  transition: all var(--transition-medium);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-button {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, #B8860B 100%);
+  color: var(--void-black);
+  border: none;
+  border-radius: 2px;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  margin-top: var(--space-sm);
+}
+
+.form-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.form-button:active {
+  transform: scale(var(--active-scale));
+}
+
+.form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mystical Elements - Simplified */
+.mystical-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.mystical-overlay.visible {
+  opacity: 1;
+}
+
+.lunar-phase {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  font-size: var(--text-2xl);
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: opacity var(--transition-medium);
+}
+
+.lunar-phase:hover {
+  opacity: 0.8;
+}
+
+.rune-sequence {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--text-lg);
+  color: var(--text-subtle);
+  opacity: 0.3;
+}
+
+/* Cursor */
+.obsidian-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  transition: all var(--transition-fast);
+  mix-blend-mode: difference;
+}
+
+.obsidian-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

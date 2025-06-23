@@ -1,38 +1,17 @@
 import React from 'react';
-import { Circle } from 'lucide-react';
 
-interface AboutSectionProps {
-  scrollY: number;
-  onLongPress: () => void;
-  isMobile?: boolean;
-}
-
-const AboutSection: React.FC<AboutSectionProps> = ({ scrollY, onLongPress, isMobile = false }) => {
+const AboutSection: React.FC = () => {
   return (
-    <section className="about-section">
-      <div className="stone-texture"></div>
-      <div 
-        className="about-content"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-          opacity: Math.max(0.3, 1 - (scrollY - 400) / 600)
-        }}
-      >
-        <div className="about-inscription">
-          <p className="about-text carved-deep no-break">
-            A consultancy devoted to elegance and balance.
-          </p>
-          <div className="inscription-details">
-            <span className="detail-rune">⚹</span>
-            <span className="detail-text">Est. During the Eternal Convergence</span>
-            <span className="detail-rune">⚹</span>
-          </div>
-        </div>
+    <section className="section about">
+      <div className="container">
+        <p className="about-text text-carved">
+          A consultancy devoted to elegance and balance.
+        </p>
         
-        <div className="about-accent">
-          <div className="accent-line"></div>
-          <Circle className="accent-dot" />
-          <div className="accent-line"></div>
+        <div className="about-details">
+          <span>⚹</span>
+          <span style={{ margin: '0 1rem' }}>Est. During the Eternal Convergence</span>
+          <span>⚹</span>
         </div>
       </div>
     </section>
