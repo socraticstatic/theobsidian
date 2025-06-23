@@ -254,8 +254,8 @@ const TemporalScholar: React.FC = () => {
                 </button>
               ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="scholar-input">
           <div className="input-container">
