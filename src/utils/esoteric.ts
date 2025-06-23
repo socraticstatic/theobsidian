@@ -163,13 +163,28 @@ export const getAztecDaySign = (birthDate?: Date): {
   const signIndex = daysSinceEpoch % 20;
   const number = (daysSinceEpoch % 13) + 1;
   
+  // Add safety check to prevent undefined access
+  const selectedSign = daySigns[signIndex];
+  if (!selectedSign) {
+    // Fallback to first sign if index is somehow invalid
+    const fallbackSign = daySigns[0];
+    return {
+      daySign: fallbackSign.sign,
+      number,
+      meaning: fallbackSign.meaning,
+      power: fallbackSign.power,
+      direction: fallbackSign.direction,
+      color: fallbackSign.color
+    };
+  }
+  
   return {
-    daySign: daySigns[signIndex].sign,
+    daySign: selectedSign.sign,
     number,
-    meaning: daySigns[signIndex].meaning,
-    power: daySigns[signIndex].power,
-    direction: daySigns[signIndex].direction,
-    color: daySigns[signIndex].color
+    meaning: selectedSign.meaning,
+    power: selectedSign.power,
+    direction: selectedSign.direction,
+    color: selectedSign.color
   };
 };
 
