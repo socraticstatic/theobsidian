@@ -1,32 +1,17 @@
 import React, { useState } from 'react';
 
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    project: '',
-    message: ''
-  });
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    // Only prevent default if we're handling it ourselves (for loading state)
+    // But still allow Netlify to process the form
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Reset loading state after a delay
     setTimeout(() => {
       setIsSubmitting(false);
-      alert('Message sent to the void...');
-      setFormData({ name: '', email: '', project: '', message: '' });
-    }, 1500);
+    }, 2000);
   };
 
   return (
@@ -36,17 +21,23 @@ const ContactSection: React.FC = () => {
           Transmit Coordinates
         </h2>
         
+        {/* Netlify-compatible form */}
         <form 
           className="contact-form" 
           onSubmit={handleSubmit}
           name="contact"
           method="POST"
+          action="/"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
         >
+          {/* Hidden fields for Netlify */}
           <input type="hidden" name="form-name" value="contact" />
           <div className="hidden">
-            <input name="bot-field" />
+            <label>
+              Don't fill this out if you're human: 
+              <input name="bot-field" />
+            </label>
           </div>
           
           <div className="form-group">
@@ -57,8 +48,6 @@ const ContactSection: React.FC = () => {
               type="text"
               id="name"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
               className="form-input"
               required
             />
@@ -72,8 +61,6 @@ const ContactSection: React.FC = () => {
               type="email"
               id="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
               className="form-input"
               required
             />
@@ -87,8 +74,6 @@ const ContactSection: React.FC = () => {
               type="text"
               id="project"
               name="project"
-              value={formData.project}
-              onChange={handleChange}
               className="form-input"
               placeholder="Branding, Consultation..."
             />
@@ -101,8 +86,6 @@ const ContactSection: React.FC = () => {
             <textarea
               id="message"
               name="message"
-              value={formData.message}
-              onChange={handleChange}
               className="form-textarea"
               placeholder="Describe your vision..."
               required
