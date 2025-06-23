@@ -509,7 +509,7 @@
   }
 }
 
-/* Mobile Responsive */
+/* Mobile Responsive - Complete Viewport Coverage */
 @media (max-width: 768px) {
   .temporal-scholar-trigger {
     bottom: 1rem;
@@ -526,20 +526,33 @@
     padding: 0;
     align-items: flex-start;
     justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
   }
 
   .temporal-scholar-container {
     width: 100vw;
     height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for better mobile support */
+    height: 100dvh;
     max-height: none;
-    border-radius: 0;
     max-width: none;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
   }
 
   .scholar-header {
     padding: 1rem;
     min-height: 60px;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 
   .scholar-title {
@@ -557,9 +570,13 @@
   }
 
   .scholar-messages {
-    padding: 0.75rem;
     flex: 1;
-    min-height: 0; /* Allow flex shrinking */
+    padding: 0.75rem;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
   }
 
   .message-content {
@@ -571,11 +588,21 @@
     line-height: 1.4;
   }
 
+  .birthdate-input-overlay {
+    padding: 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
   .birthdate-form {
-    margin: 1rem;
+    margin: 0;
     padding: 1.5rem;
-    max-width: calc(100vw - 2rem);
-    width: calc(100vw - 2rem);
+    max-width: none;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .form-buttons {
@@ -584,6 +611,9 @@
 
   .quick-questions {
     padding: 0.75rem;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
     flex-shrink: 0;
   }
 
@@ -599,6 +629,9 @@
 
   .scholar-input {
     padding: 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
     flex-shrink: 0;
   }
 
@@ -655,7 +688,7 @@
   }
 }
 
-/* Fix for very small screens */
+/* Fix for very small screens and landscape mode */
 @media (max-width: 320px) {
   .temporal-scholar-container {
     height: 100vh;
@@ -681,5 +714,25 @@
 
   .scholar-input {
     padding: 0.5rem;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .scholar-header {
+    padding: 0.5rem 1rem;
+    min-height: 50px;
+  }
+
+  .scholar-messages {
+    padding: 0.5rem;
+  }
+
+  .quick-questions {
+    display: none; /* Hide quick questions in landscape to save space */
+  }
+
+  .scholar-input {
+    padding: 0.5rem 1rem;
   }
 }
