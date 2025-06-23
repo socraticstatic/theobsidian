@@ -11,11 +11,17 @@ const ContactSection: React.FC = () => {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     
-    // Submit to Netlify
+    // Submit to Netlify using proper encoding
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData as any).toString()
+      body: new URLSearchParams({
+        'form-name': 'contact',
+        'name': formData.get('name') as string,
+        'email': formData.get('email') as string,
+        'project': formData.get('project') as string,
+        'message': formData.get('message') as string,
+      }).toString()
     })
     .then(() => {
       setIsSubmitting(false);
@@ -73,6 +79,7 @@ const ContactSection: React.FC = () => {
           onSubmit={handleSubmit}
           name="contact"
           method="POST"
+          action="/"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
         >
