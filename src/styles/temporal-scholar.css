@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TEMPORAL SCHOLAR - Conversational AI Interface
+   TEMPORAL SCHOLAR - Conversational AI Interface with Birthdate Input
    ========================================================================== */
 
 .temporal-scholar-trigger {
@@ -91,6 +91,18 @@
   font-size: var(--text-sm);
   font-weight: 300;
   margin-left: 1rem;
+}
+
+.user-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(212, 175, 55, 0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: var(--text-xs);
+  color: var(--accent-gold);
+  margin-left: 0.5rem;
 }
 
 .scholar-close {
@@ -217,6 +229,118 @@
   animation-delay: 0.4s;
 }
 
+/* Birthdate Input Overlay */
+.birthdate-input-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+.birthdate-form {
+  background: linear-gradient(135deg, var(--obsidian-deep) 0%, var(--stone-shadow) 100%);
+  border: 1px solid var(--accent-gold);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: containerSlideUp 0.4s ease-out;
+}
+
+.birthdate-form h3 {
+  color: var(--accent-gold);
+  font-size: var(--text-xl);
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.birthdate-form p {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.birthdate-form .form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.birthdate-form label {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.birthdate-form input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  transition: all var(--transition-fast);
+}
+
+.birthdate-form input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn {
+  flex: 1;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, #b8941f 100%);
+  color: var(--void-black);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
 .quick-questions {
   padding: 1rem;
   border-top: 1px solid rgba(192, 192, 192, 0.1);
@@ -234,6 +358,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .quick-question-btn {
@@ -253,6 +378,25 @@
   background: rgba(192, 192, 192, 0.1);
   color: var(--text-primary);
   border-color: var(--accent-silver);
+}
+
+.birthdate-prompt-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, #b8941f 100%);
+  color: var(--void-black);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+}
+
+.birthdate-prompt-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
 }
 
 .scholar-input {
@@ -398,6 +542,11 @@
     font-size: var(--text-xs);
   }
 
+  .user-indicator {
+    margin-left: 0.3rem;
+    padding: 0.1rem 0.3rem;
+  }
+
   .scholar-messages {
     padding: 0.75rem;
   }
@@ -408,6 +557,15 @@
 
   .message-content p {
     font-size: var(--text-xs);
+  }
+
+  .birthdate-form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
   }
 
   .quick-questions {
@@ -436,5 +594,13 @@
 
   .scholar-title span:first-of-type {
     display: none;
+  }
+
+  .birthdate-form h3 {
+    font-size: var(--text-lg);
+  }
+
+  .birthdate-form p {
+    font-size: var(--text-xs);
   }
 }
