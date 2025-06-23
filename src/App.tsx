@@ -4,12 +4,14 @@ import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
 import MysticalOverlay from './components/MysticalOverlay';
 import ObsidianCursor from './components/ObsidianCursor';
+import TemporalScholar from './components/TemporalScholar';
 
 // Import CSS files
 import './styles/theme.css';
 import './styles/components.css';
 import './styles/animations.css';
 import './styles/responsive.css';
+import './styles/temporal-scholar.css';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <HeroSection />
       <AboutSection />
       <ContactSection />
+      
+      <TemporalScholar />
     </div>
   );
 }
