@@ -60,7 +60,7 @@ const TemporalScholar: React.FC = () => {
       // Welcome message when first opened
       const welcomeMessage: Message = {
         id: Date.now().toString(),
-        content: "Greetings, seeker of temporal mysteries. I am the Obsidian Scholar, keeper of ancient calendars, celestial calculations, and the wisdom of many traditions. I can guide you through lunar phases, planetary hours, sacred geometry, Chinese astrology, Vedic nakshatras, Aztec day signs, Celtic tree wisdom, Egyptian decans, and the myriad ways civilizations have measured the flow of time through the cosmos. \n\nTo provide you with a personalized reading across multiple mystical traditions, I would need to know your birthdate. Shall we begin with that, or would you prefer to explore general temporal mysteries first?",
+        content: "Greetings, seeker of temporal mysteries. I am the Obsidian AI, keeper of ancient calendars, celestial calculations, and the wisdom of many traditions. I can guide you through lunar phases, planetary hours, sacred geometry, Chinese astrology, Vedic nakshatras, Aztec day signs, Celtic tree wisdom, Egyptian decans, and the myriad ways civilizations have measured the flow of time through the cosmos. \n\nTo provide you with a personalized reading across multiple mystical traditions, I would need to know your birthdate. Shall we begin with that, or would you prefer to explore general temporal mysteries first?",
         sender: 'scholar',
         timestamp: new Date()
       };
@@ -276,10 +276,10 @@ const TemporalScholar: React.FC = () => {
       <button
         onClick={() => setIsOpen(true)}
         className="temporal-scholar-trigger"
-        title="Consult the Temporal Scholar"
+        title="Consult the Obsidian AI"
       >
         <Clock className="w-6 h-6" />
-        <span className="trigger-text">Temporal Scholar</span>
+        <span className="trigger-text">Obsidian AI</span>
       </button>
     );
   }
@@ -290,7 +290,7 @@ const TemporalScholar: React.FC = () => {
         <div className="scholar-header">
           <div className="scholar-title">
             <Clock className="w-5 h-5" />
-            <span>Temporal Scholar</span>
+            <span>Obsidian AI</span>
             <div className="scholar-status">
               <Moon className="w-4 h-4" />
               <span>Online • {lunar.symbol}</span>
