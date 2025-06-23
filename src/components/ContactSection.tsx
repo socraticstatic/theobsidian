@@ -2,17 +2,63 @@ import React, { useState } from 'react';
 
 const ContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    // Only prevent default if we're handling it ourselves (for loading state)
-    // But still allow Netlify to process the form
+    e.preventDefault();
     setIsSubmitting(true);
     
-    // Reset loading state after a delay
-    setTimeout(() => {
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    // Submit to Netlify
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData as any).toString()
+    })
+    .then(() => {
       setIsSubmitting(false);
-    }, 2000);
+      setIsSubmitted(true);
+      
+      // Redirect to home after 3 seconds
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
+    })
+    .catch(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      
+      // Redirect to home after 3 seconds even on error
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
+    });
   };
+
+  if (isSubmitted) {
+    return (
+      <section className="section contact">
+        <div className="container">
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 'var(--text-4xl)', color: 'var(--accent-gold)', marginBottom: 'var(--space-lg)' }}>
+              𓍶
+            </div>
+            <h2 className="hero-subtitle text-carved" style={{ marginBottom: 'var(--space-lg)' }}>
+              Transmission Received
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>
+              Your coordinates have been absorbed into the void.
+            </p>
+            <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)' }}>
+              Returning to the obsidian depths...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section contact">
@@ -27,7 +73,6 @@ const ContactSection: React.FC = () => {
           onSubmit={handleSubmit}
           name="contact"
           method="POST"
-          action="/"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
         >

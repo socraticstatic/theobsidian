@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Clock, Moon, Calendar, Star, X, User } from 'lucide-react';
+import { MessageCircle, Moon, Calendar, Star, X, User } from 'lucide-react';
 import { 
   getLunarPhase, 
   getCosmicCoordinates,
@@ -278,7 +278,7 @@ const TemporalScholar: React.FC = () => {
         className="temporal-scholar-trigger"
         title="Consult the Obsidian AI"
       >
-        <Clock className="w-6 h-6" />
+        <span style={{ fontSize: '1.5rem' }}>𓍶</span>
         <span className="trigger-text">Obsidian AI</span>
       </button>
     );
@@ -289,7 +289,7 @@ const TemporalScholar: React.FC = () => {
       <div className="temporal-scholar-container">
         <div className="scholar-header">
           <div className="scholar-title">
-            <Clock className="w-5 h-5" />
+            <span style={{ fontSize: '1.25rem' }}>𓍶</span>
             <span>Obsidian AI</span>
             <div className="scholar-status">
               <Moon className="w-4 h-4" />
